@@ -1,0 +1,15 @@
+﻿@model P_test_1.View_Model.Emp_Details
+@{
+    ViewData["Title"] = "DetailsVM";
+}
+
+<h1>DetailsVM</h1>
+
+<h2 style="color:@Model.Color">@Model.EmpName</h2>
+<h2>@Model.DeptNzme</h2>
+<select>
+    @foreach(var item in Model.Branches)
+    {
+        <option>@item</option>
+    }
+</select>

@@ -1,0 +1,61 @@
+﻿@model List<Employee>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdcLayout";
+}
+
+<h1>Index</h1>
+<a asp-action="New" asp-controller="Employee" class="btn btn-success" style="margin:10px">New</a>
+
+<div id="div1" style="border:2px solid blue"></div>
+
+<table class="table table-bordered table-hover" align="center">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Image</th>
+        <th>Edit</th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+        <td>@item.Id</td>
+        <td>@item.Name</td>
+        <td>@item.Salary</td>
+        <td><img src="@item.ImageURL" alt="Uploaded Image" style="width:100px"/></td>
+        <td>
+            @* <a href="/employee/Edit/@item.Id">Edit</a> *@
+            <a asp-action="Edit" asp-controller="employee" asp-route-id="@item.Id" class="link link-light">Edit</a>
+            <br />
+            <br />
+            <a asp-action="Delete" asp-controller="employee" asp-route-id="@item.Id" class="link link-light">Delete</a>
+             
+            <br />
+            <br />
+            <a asp-action="DetailsPartial" asp-controller="employee" asp-route-id="@item.Id" onclick="GetEmpData(@item.Id)" class="link link-light">Details</a>
+        </td>
+        </tr>
+    }
+</table>
+<h6 style="align-content:center">@DateTime.Now</h6>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    function GetEmpData(empId) {
+        event.preventDefault();
+        $.ajax({
+            url: "/Employee/DetailsPartial/" + empId,
+            success: function(result) {
+                console.log(result); // Check the console to see what the server is returning
+                $("#div1").html(result);
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred: " + error); // Log any errors
+            }
+        })
+    }
+</script>

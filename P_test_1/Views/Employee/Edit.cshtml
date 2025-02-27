@@ -1,0 +1,49 @@
+﻿@model EmpwithDeptListVM
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form method="post" action="/Employee/SaveEdit/@Model.Id">
+    <div>   
+        @*<input type="hidden" name="Id" id="Id" value="@Model.Id" class="form form-control" />*@
+
+        @* <label>Name</label> *@
+        @* @Html.LabelFor(e => e.Name) *@
+        <label asp-for="Name"></label>
+        <input type="text" name="Name" id="Name" value="@Model.Name" class="form form-control" />
+
+        @Html.Label("Password")
+        @Html.EditorFor(e => e.Name)
+
+        <br />
+
+        <label>Salary</label>
+        <input type="number" name="Salary" id ="Salary" value="@Model.Salary" class="form form-control" />
+
+        <label>Adress</label>
+        <input type="text" name="Address" id="Address" value="@Model.Address" class="form form-control" />
+
+        <label>Image</label>
+        <input type="text" name="ImageURL" id="ImageURL" value="@Model.ImageURL" class="form form-control" />
+
+        <label>JobTitle</label>
+        <input type="text" name="JobTitle" id="JobTitle" value="@Model.JobTitle" class="form form-control" />
+
+        <label>Department Name</label>
+        @* <input type="number" name="DptID" id="DptID" value="@Model.DptID" class="form form-control" /> *@
+        <select name="DptID" id="DptID" value="@Model.DptID" class="form form-control">
+            @foreach(var item in Model.Departments)
+            {
+                @if(Model.DptID == item.Id)
+                {<option value="@item.Id" selected>@item.Name</option>}
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <input type="submit" value="Save Changes" class="btn btn-success"  />
+</form>
